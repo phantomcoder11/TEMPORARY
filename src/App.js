@@ -54,36 +54,49 @@ function App() {
 
       // 4. TODO - Make Detections
           const obj = await net.detect(video);
-          // console.log(obj)
-          if(obj.length===0)
-          setNotifications("No person detected")
+          
+          console.log(obj)
+
+          if(obj.length===0){
+             setNotifications("No person detected")
+          }
+          
           if(obj.length){
             var count=0;
+
+            setNotifications('')
      
             obj.forEach(element => {
+
               if(element.class==="book")
-              setNotifications("book tho")
+                  setNotifications("book tho")
+              
               if(element.class==="cell phone" || element.class==="laptop" )
-              setNotifications("mobile tho")
+                 setNotifications("mobile tho")
               // console.log(element.class);
+              
               if(element.class==="person"){
                 //  if(element.class.length>1)
                 //  alert("More Than One person detected")
                 count++;
-                
-              }
-               
+
+                console.log(count)
                  
+                if(count>1){
+                   setNotifications("More Than One person detected"+count)
+                }
+              }
             });
-            if(count>1){
-              setNotifications("More Than One person detected"+count)
-              count=0;
-            }
-            
+          
+          
+          
           }
 
-          if(count===0 || obj.length===0)
-          setNotifications("No person detected")
+          if(count===0 || obj.length===0){
+              setNotifications("No person detected")
+          }
+
+
       // Draw mesh
       const ctx = canvasRef.current.getContext("2d");
 
